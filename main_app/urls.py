@@ -17,4 +17,5 @@ urlpatterns = [
   path('lures/create/', views.LureCreate.as_view(), name='lures_create'),
   path('lures/<int:pk>/update/', views.LureUpdate.as_view(), name='lures_update'),
   path('lures/<int:pk>/delete/', views.LureDelete.as_view(), name='lures_delete'),
+  path('accounts/signup/', views.signup, name='signup'),
 ]

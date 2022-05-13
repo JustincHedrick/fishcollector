@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 FISH = (
   ('BC', 'Black Crappie'),
@@ -47,12 +48,15 @@ class River(models.Model):
   description = models.TextField(max_length=250)
   fish = models.TextField(max_length=100)
   lures = models.ManyToManyField(Lure)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
   
   def __str__(self):
     return self.name
   
   def get_absolute_url(self):
     return reverse('detail', kwargs={'river_id': self.id})
+  # def get_absolute_url(self):
+  #   return reverse('detail', kwargs={'river_id': self.id})
 
 class caughtFish(models.Model):
   date = models.DateField('caught date')

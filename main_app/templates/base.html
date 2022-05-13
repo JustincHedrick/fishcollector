@@ -20,10 +20,16 @@
         </ul>
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
-          <li><a href="{% url 'rivers_create' %}">Add a River</a></li>
-          <li><a href="{% url 'index' %}">View some rivers</a></li>
-          <li><a href="{% url 'lures_create' %}">Add a Lure</a></li>
-          <li><a href="{% url 'lures_index' %}">View all Lures</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'rivers_create' %}">Add a River</a></li>
+            <li><a href="{% url 'index' %}">View some rivers</a></li>
+            <li><a href="{% url 'lures_create' %}">Add a Lure</a></li>
+            <li><a href="{% url 'lures_index' %}">View all Lures</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
