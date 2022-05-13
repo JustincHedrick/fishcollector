@@ -23,7 +23,7 @@ def rivers_index(request):
 def rivers_detail(request, river_id):
   river = River.objects.get(id=river_id)
   id_list = river.lures.all().values_list('id')
-  lures_river_doesnt_have = Lure.objects.exclude(river=id_list)
+  lures_river_doesnt_have = Lure.objects.exclude(id__in=id_list)
   caught_form = caughtForm()
   return render(request, 'rivers/detail.html', { 
     'river': river,'caught_form': caught_form, 
@@ -32,7 +32,7 @@ def rivers_detail(request, river_id):
 
 class RiverCreate(CreateView):
   model = River
-  fields = '__all__'
+  fields = ['name', 'creeks', 'state', 'description', 'fish']
 
 class RiverUpdate(UpdateView):
   model = River

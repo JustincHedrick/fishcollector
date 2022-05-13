@@ -61,7 +61,7 @@
   <!-- Available toys will come after this line -->
   <div class="col s6">
     <h3>Available Lures</h3>
-    {% if Lures.count %}
+    {% if lures.count %}
       {% for lure in lures.all %}
         <div class="card">
           <div class="card-content">
@@ -70,7 +70,7 @@
             </span>
           </div>
           <div class="card-action">
-            <form action="" method="POST">
+            <form action="{% url 'assoc_lure' river.id lure.id %}" method="POST">
               {% csrf_token %}
               <button type="submit" class="btn">Add</button>
             </form>

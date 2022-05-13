@@ -7,17 +7,13 @@
 {% else %}
   <h1>Add River</h1>
 {% endif %}
-  <form action="" method="POST">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
-    {% if object %}
-      <input type="submit" value="Update River" class="btn">
-    {% else %}
-      <input type="submit" value="Add River" class="btn">
-    {% endif %}
-  </form>
 
+<form action="" method="POST">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <input type="submit" value="Submit!" class="btn">
+</form>
 
 {% endblock %}
