@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>River List</h1>
+
+{% for river in rivers %}
+  <div class="card">
+    <a href="{% url 'detail' river.id %}">
+      <div class="card-content">
+        <span class="card-title">{{ river.name }}</span>
+        <p>State: {{ river.state }}</p>
+      </div>
+    </a>
+  </div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>River Details</h1>
+
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ river.name }}</span>
+        <p>{{ river.description }}</p>
+        <p>Fish: {{ river.fish }}</p>
+        <p>Creeks: {{ river.creeks }}</p>
+        <p>State: {{ river.state }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'rivers_update' river.id %}">Edit</a>
+        <a href="{% url 'rivers_delete' river.id %}">Delete</a>
+      </div>
+    </div>
+  </div>    
+  <div class="col s6">
+    <form action="add_caughtFish" method="POST">
+      {% csrf_token %}
+      {{ caught_form.as_p }}
+      <input type="submit" class="btn"  value="Add catch">
+    </form>
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Caught fish</th></tr>
+      </thead>
+      <tbody>
+        {% for caughtfish in river.caughtfish_set.all %}
+          <tr>
+            <td>{{ caughtfish.date }}</td>
+            <td>{{ caughtfish.get_fish_display }}</td>
+          </tr>
+        {% endfor %}  
+      </tbody>
+    </table>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ river.name }}'s Lures</h3>
+    {% if river.lures.count %}
+      {% for lure in river.lures.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="color: {{ lure.color }}">{{ lure.color }}</span> {{ lure.name }}
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Lures :(</h5>
+    {% endif %}
+  </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>Available Lures</h3>
+    {% if Lures.count %}
+      {% for lure in lures.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="color: {{ lure.color }}">{{ lure.color }}</span> {{ lure.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{river.name}} Already Has All Lures Available</h5>
+    {% endif %}
+  </div>
+</div>
+
+
+<script>
+   const dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+
+  const selectEl = document.getElementById('id_fish');
+  M.FormSelect.init(selectEl);
+</script>
+
+
+{% endblock %}
